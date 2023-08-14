@@ -1,0 +1,121 @@
+@import './reset.css';
+
+.wrapper{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.inner {
+    padding: 30px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    border: 1px solid grey;
+    max-width: 500px;
+    width: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.form__textarea {
+    min-height: 50px;
+    padding: 10px;
+    font-size: 18px;
+} 
+
+.form__send-btn,
+.form__cancel-btn {
+    border: 1px solid grey;
+    padding: 3px;
+    border-radius: 5px;
+    color: inherit;
+}
+
+.form__send-btn:active,
+.form__cancel-btn:active {
+    transform: scale(0.97);
+}
+
+.output {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.task {
+    position: relative;
+    border: 1px solid grey;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    cursor: move;
+}
+
+@media (min-width: 800px) {
+    .task.dragging {
+        opacity: 0.6;
+    }
+}
+
+.task__index{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -15px;
+}
+
+.task__text {
+    flex-grow: 1;
+    padding-right: 10px;
+}
+
+.task.done {
+    opacity: 0.5;
+}
+.task.done .task__text {
+    text-decoration: line-through;
+}
+
+
+/* Группа кнопок */
+.task__btns {
+    display: flex;
+    column-gap: 5px;
+}
+
+.task__pinned svg path,
+.task__done svg path {
+    fill: transparent;
+    stroke: #999;
+}
+
+.task__edit svg path,
+.task__del svg path {
+    stroke: #999;
+    fill: #999;
+}
+
+.task__pinned.active svg path,
+.task__pinned:active svg path {
+    stroke: red;
+}
+
+.task__done.active svg path,
+.task__done:active svg path {
+    stroke: green;
+}
+
+.task__del:active svg path,
+.task__edit:active svg path {
+    stroke: #1e1e24;
+    fill: #1e1e24;
+}
+
