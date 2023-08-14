@@ -38,9 +38,9 @@ function renderTasks(tasks) {
         const { id, task, pinned, done } = value;
         const item = 
             `
-            <div class="task ${done ? 'done' : ''}" data-task-id="${id}" draggable="true">
+            <div class="task ${done ? 'done' : ''} ${pinned ? 'pinned' : ''}" data-task-id="${id}" draggable="true">
                 <p class="task__text">${task}</p>
-                <span class="task__index">${i + 1}</span>
+                <span class="task__index ${done ? 'none' : ''}">${i + 1}</span>
                 <div class="task__btns">
                     <button class="task__done ${done ? 'active' : ''}">${doneSvg}</button>
                     <button class="task__pinned ${pinned ? 'active' : ''}">${pinnedSvg}</button>
