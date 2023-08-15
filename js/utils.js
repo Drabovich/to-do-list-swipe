@@ -1,4 +1,5 @@
 import { doneSvg, pinnedSvg, delSvg, editSvg } from "./svg.js";
+let sortableInstance = null;
 
 export function getTasksLocalStorage() {
     const tasksJSON = localStorage.getItem('tasks');
@@ -38,7 +39,7 @@ function renderTasks(tasks) {
         const { id, task, pinned, done } = value;
         const item = 
             `
-            <div class="task ${done ? 'done' : ''} ${pinned ? 'pinned' : ''}" data-task-id="${id}" draggable="true">
+            <div class="task ${done ? 'done' : ''} ${pinned ? 'pinned' : ''}" data-task-id="${id}">
                 <p class="task__text">${task}</p>
                 <span class="task__index ${done ? 'none' : ''}">${i + 1}</span>
                 <div class="task__btns">
@@ -52,22 +53,15 @@ function renderTasks(tasks) {
         document.querySelector('.output').insertAdjacentHTML('beforeend', item)
     });
 
-    activationDrag();
-}
+    if (sortableInstance) {
+        sortableInstance.destroy();
+    }
 
-function activationDrag() {
-    const tasks = [...document.querySelectorAll('.task')];
-
-    tasks.forEach(item => {
-        item.addEventListener("dragstart", () => {
-            setTimeout(() => item.classList.add("dragging"), 0);
-        });
-        item.addEventListener("dragend", () => {
-            item.classList.remove("dragging");
-            if (tasks.length > 1) {
-                savePositionTask();
-            }
-        })
+    sortableInstance = new Sortable(document.getElementById("output"), {
+        animation: 150,
+        onEnd: function() {
+            savePositionTask();
+        }
     });
 }
 
@@ -86,18 +80,3 @@ function savePositionTask() {
     setTasksLocalStorage(arrayTasksLS)
     updateListTasks()
 }
-
-export function initSortableList(event) {
-    event.preventDefault();
-
-    const output = document.querySelector('.output');
-    const draggingItem = document.querySelector(".dragging");
-    let siblings = [...output.querySelectorAll(".task:not(.dragging)")];
-
-    let nextSibling = siblings.find(sibling => {
-        return event.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
-    });
-
-    output.insertBefore(draggingItem, nextSibling);
-}
-

@@ -59,12 +59,6 @@
     cursor: move;
 }
 
-@media (min-width: 800px) {
-    .task.dragging {
-        opacity: 0.6;
-    }
-}
-
 .task__index{
     position: absolute;
     text-align: right;

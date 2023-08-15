@@ -5,7 +5,6 @@ import {
     getTasksLocalStorage,
     setTasksLocalStorage,
     generateUniqueId,
-    initSortableList,
     updateListTasks
 } from "./utils.js";
 
@@ -23,8 +22,6 @@ updateListTasks();
 // All eventListener
 form.addEventListener('submit', sendTask);
 buttonCancel.addEventListener('click', resetSendForm);
-output.addEventListener("dragover", initSortableList);
-output.addEventListener("dragenter", event => event.preventDefault());
 
 output.addEventListener('click', event => {
     const taskElement = event.target.closest('.task__btns');
@@ -161,7 +158,7 @@ function resetSendForm() {
     editId = null;
     isEditTask = false;
     buttonCancel.classList.add('none');
-    buttonSendForm.textContent = 'Отправить';
+    buttonSendForm.textContent = 'Добавить';
     form.reset();
 }
 
