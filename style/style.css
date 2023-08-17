@@ -90,7 +90,8 @@
     border-bottom: 2px solid red;
 }
 
-.task.sortable-dragged {
+.task.sortable-dragged, 
+.task.down {
     border-color: red;
     background-color: #f9c7c8;
 }

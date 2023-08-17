@@ -1,5 +1,6 @@
 import { doneSvg, pinnedSvg, delSvg, editSvg } from "./svg.js";
 let sortableInstance = null;
+let timerDown = null;
 
 export function getTasksLocalStorage() {
     const tasksJSON = localStorage.getItem('tasks');
@@ -59,7 +60,7 @@ function renderTasks(tasks) {
 
     sortableInstance = new Sortable(document.getElementById("output"), {
         animation: 150,
-        delay: 300,
+        delay: 500,
         onStart: function(event) {
             event.item.classList.add("sortable-dragged");
         },
@@ -68,6 +69,26 @@ function renderTasks(tasks) {
             savePositionTask();
         }
     });
+
+    [...document.querySelectorAll('.task')].forEach(item => {
+        item.addEventListener('mousedown', () => {
+            timerDown = setTimeout(() => item.classList.add('down'), 500)
+        })
+
+        item.addEventListener('mouseup', () => {
+            item.classList.remove('down');
+            clearInterval(timerDown);
+        })
+
+        item.addEventListener('touchstart', () => {
+            timerDown = setTimeout(() => item.classList.add('down'), 500)
+        })
+
+        item.addEventListener('touchend', () => {
+            item.classList.remove('down');
+            clearInterval(timerDown);
+        })
+    })
 }
 
 function savePositionTask() {
