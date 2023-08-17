@@ -84,6 +84,11 @@
     border-bottom: 2px solid red;
 }
 
+.task.sortable-dragged {
+    border-color: red;
+    background-color: #f9c7c8;
+}
+
 
 /* Группа кнопок */
 .task__btns {

@@ -59,7 +59,12 @@ function renderTasks(tasks) {
 
     sortableInstance = new Sortable(document.getElementById("output"), {
         animation: 150,
-        onEnd: function() {
+        delay: 300,
+        onStart: function(event) {
+            event.item.classList.add("sortable-dragged");
+        },
+        onEnd: function(event) {
+            event.item.classList.remove("sortable-dragged");
             savePositionTask();
         }
     });
